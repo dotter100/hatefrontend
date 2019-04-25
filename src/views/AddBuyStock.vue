@@ -17,7 +17,7 @@
                 <form class="" method="post" @submit.prevent="dopost">
                     <div class="form-group">
                         <label>Stocks</label>
-                        <select class="form-control" v-model="buystock.stock"  style="margin-left: 8%; width:84%" placeholder="Portfolio">
+                        <select class="form-control" v-model="prop.buystock.stock"  style="margin-left: 8%; width:84%" placeholder="Portfolio">
                             <option v-for="option in Stocks" v-bind:value="option">
                                 {{ option.name }}
                             </option>
@@ -34,11 +34,11 @@
                     </div>
                     <div class="form-group">
                         <label style="padding-right: 10%">Buy price</label>
-                    <input style="width: 10%" type="number" v-model="buystock.buyPrice" id="Price"  name="price" placeholder="Buyprice">
+                    <input style="width: 10%" type="number" v-model="prop.buystock.buyPrice" id="Price"  name="price" placeholder="Buyprice">
                     </div>
                     <div class="form-group">
                         <label style="padding-right: 10%">Amount</label>
-                    <input style="width: 10%" type="number" v-model="buystock.amount" id="amount" class="in" name="price" placeholder="Amount">
+                    <input style="width: 10%" type="number" v-model="prop.buystock.amount" id="amount" class="in" name="price" placeholder="Amount">
                     </div>
 
                         <input type="submit" class="fadeIn fourth" value="Add Stock">
@@ -72,10 +72,13 @@
                 Portfolios:[],
                 Stocks:[],
                 errors: [],
+                prop:{
                 buystock: {
                     stock: null,
                     buyPrice: 0,
                     amount: 0
+                },
+                id: 0
                 },
                 Portfolio: null
             }
@@ -108,11 +111,12 @@
         },
         methods: {
             dopost: function () {
+                this.prop.id = this.Portfolio.id;
 
-                this.Portfolio.stocks.push(this.buystock);
-
-                axios.post(`http://desktop-354os6s:8080/JEAORM/API/Portfolio/Update`, this.Portfolio,
-                    {
+                axios.post(`http://desktop-354os6s:8080/JEAORM/API/Stocks/Update`, this.prop.buystock,{
+                    params: {
+                    id: this.prop.id
+                },
                         headers: {
                             Authorization: 'Bearer ' + localStorage.getItem('token')
                         }
