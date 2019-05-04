@@ -81,10 +81,6 @@
                             const o = JSON.parse(data)
                             console.log(o);
                             this.Stocks = o;
-
-
-                        //this.Stocks = data
-                        //this.logs.push({ event: "Recieved message", data });
                     };
                 };
             },
