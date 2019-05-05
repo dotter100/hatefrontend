@@ -9,7 +9,18 @@
                     <small>{{Portfolio.stocks.size}}</small>
                 </div>
             </b-list-group-item>
+            <div>
+            <router-link to="/AddPortfolio" style="float: left;">
+                <button class="btn btn-primary" id="Portfolio">Add Portfolio</button>
+            </router-link>
+            <router-link to="/AddBuyStock" style="float: right;">
+                <button class="btn btn-primary" id="addstocks">Add Stocks</button>
+            </router-link>
+            </div>
+            <button v-on:click="RemoveProfile" class="btn btn-danger" id="RemovePortfolio">RemovePortfolio</button>
         </b-list-group>
+
+
     </div>
 
             <div class="col-md-5" v-if="model !== null" style="float: left;">
@@ -44,6 +55,9 @@
 
     </div>
 </template>
+<style>
+    @import 'Login.css';
+</style>
 
 <script>
     import axios from 'axios';
@@ -71,9 +85,42 @@
                     alert("No rights");
                 })
         },
-        methods:{
-            loadPortfolio:function(Portfolio){
+        methods: {
+            loadPortfolio: function (Portfolio) {
                 this.model = Portfolio;
+            },
+            RemoveProfile: function () {
+
+                if (!this.model <= 0) {
+                    axios.delete(`http://desktop-354os6s:8080/JEAORM/API/Portfolio/remove/` + this.model.id, {
+                        headers: {
+                            Authorization: 'Bearer ' + localStorage.getItem('token')
+                        }
+                    })
+                        .then(response => {
+                            if (response.status == 200) {
+                                alert("Portfolio removed")
+                                axios.get(`http://desktop-354os6s:8080/JEAORM/API/Portfolio`, {
+                                    headers: {
+                                        Authorization: 'Bearer ' + localStorage.getItem('token')
+                                    }
+                                })
+                                    .then(response => {
+                                        this.Portfolios = response.data;
+                                    })
+                                    .catch(function (error) {
+                                        alert("No rights");
+                                    })
+                            } else {
+                                alert("Portfolio couldn't been removed")
+                            }
+                        })
+                        .catch(function (error) {
+                            alert("No rights");
+                        })
+                }else {
+                    alert("select portfolio")
+                }
             }
         }
     }
