@@ -3,6 +3,7 @@
     <div class="col-md-4">
         <button @click="disconnect" v-if="status === 'connected'">Disconnect</button>
         <button @click="connect" v-if="status === 'disconnected'">Connect</button> {{ status }}
+        <input type="text" v-model="message" id=""  placeholder="filter" @keyup.enter="sendMessage()">
         <h2>Stock list:<br></h2>
         <b-list-group style="margin: 5%">
             <b-list-group-item class="flex-column align-items-start" v-for="Stock in Stocks" :key="Stock.ID" style="margin-bottom: 10px" v-on:click="loadauto(auto)">
@@ -67,6 +68,7 @@
             this.connect()
         },
         methods:{
+
             loadauto:function(Stock){
                 this.model = Stocks;
             },
@@ -92,7 +94,6 @@
             sendMessage(e) {
                 this.socket.send(this.message);
                 this.logs.push({ event: "Sent message", data: this.message });
-                this.message = "";
             }
 
         }

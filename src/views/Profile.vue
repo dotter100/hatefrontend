@@ -40,7 +40,7 @@
       }
     },
     mounted () {
-      axios.get(`http://:8080/Registreren/User`, {
+      axios.get(`http://localhost:8080/Registreren/User`, {
 
       })
         .then(response => {

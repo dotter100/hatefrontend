@@ -55,7 +55,7 @@
         },
         methods: {
             dopost: function () {
-                axios.post(`http://desktop-354os6s:8080/JEAORM/API/Portfolio/add`, this.portfolio,
+                axios.post(`http://localhost:8080/JEAORM/API/Portfolio/add`, this.portfolio,
                     {
                         headers: {
                             Authorization: 'Bearer ' + localStorage.getItem('token')

@@ -84,7 +84,7 @@
             }
         },
         mounted () {
-            axios.get(`http://desktop-354os6s:8080/JEAORM/API/Stocks`, {
+            axios.get(`http://localhost:8080/JEAORM/API/Stocks`, {
                 headers: {
                     Authorization: 'Bearer ' + localStorage.getItem('token')
                 }
@@ -96,7 +96,7 @@
                     alert("No rights");
                 })
 
-            axios.get(`http://desktop-354os6s:8080/JEAORM/API/Portfolio`, {
+            axios.get(`http://localhost:8080/JEAORM/API/Portfolio`, {
                 headers: {
                     Authorization: 'Bearer ' + localStorage.getItem('token')
                 }
@@ -113,7 +113,7 @@
             dopost: function () {
                 this.prop.id = this.Portfolio.id;
 
-                axios.post(`http://desktop-354os6s:8080/JEAORM/API/Stocks/Update`, this.prop.buystock,{
+                axios.post(`http://localhost:8080/JEAORM/API/Stocks/Update`, this.prop.buystock,{
                     params: {
                     id: this.prop.id
                 },

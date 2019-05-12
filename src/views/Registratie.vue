@@ -80,7 +80,7 @@
         },
         methods: {
             dopost: function () {
-                axios.post(`http://desktop-354os6s:8080/JEAORM/API/authentication/register`, qs.stringify({
+                axios.post(`http://localhost:8080/JEAORM/API/authentication/register`, qs.stringify({
                     'username': this.username,
                     'password': this.password,
                     'twofactor' : secret.base32
